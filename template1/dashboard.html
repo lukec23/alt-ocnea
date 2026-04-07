@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dash</title>
+    <link rel="stylesheet" href="static/style.css">
+    <script src="https://code.jquery.com/jquery-4.0.0.min.js" integrity="sha256-OaVG6prZf4v69dPg6PhVattBXkcOWQB62pdZ3ORyrao=" crossorigin="anonymous"></script>
+</head>
+<body>
+
+    <script>
+        function logout() {
+            $.ajax({
+                'url': '/logout',
+                'type': 'GET',
+                'success': function(data) {
+                    window.location.reload();
+                    console.log("Logout success.");
+                }
+            });
+        }
+
+        
+        function sendNote() {
+            let titleBox =  document.getElementById('noteTitle')
+            let title = titleBox.value
+            let contentBox = document.getElementById('note')
+            let content = contentBox.value
+
+            $.ajax({
+
+            'url' : '/saveNote',
+            'type' : 'POST',
+            'data' : {
+                'title': title,
+                'content': content
+            },
+            'success' : function(data) {              
+                console.log('Data: ' + data);
+            },
+            'error' : function(request, error)
+            {
+                console.log("Request: "+JSON.stringify(request));
+            }
+        
+            });
+            titleBox.innerText = "";
+            contentBox.innerText = "";
+            window.location.reload();
+        }
+    </script>
+
+
+    <h1>Zapiski</h1>
+    <h2>Pozdravljen, {{ user }}!</h2>
+
+    <textarea name="" id="noteTitle"></textarea><br>
+    <textarea name="" id="note" cols="50" rows="10"></textarea><br>
+    <button type="button" onclick="sendNote()">Shrani</button><br>
+
+    {% for note in notes %}
+    <div class="note-div">
+        <h2>{{ note.title }}</h2>
+        <p>{{ note.content }}</p>
+    </div>
+    {% endfor %}
+
+    <button id="logout-button" onclick="logout()">Logout</button>
+
+</body>
+</html>

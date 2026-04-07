@@ -1,0 +1,54 @@
+body {
+    background: rgba(89, 98, 33, 0.2);
+}
+
+h1 {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: rgba(0, 32, 18, 1);
+    font-size: 2.2em;
+}
+
+form input[type=text] {
+    padding: 4px 20px 4px 0px;
+    margin: 0px 0px 5px 0px;
+
+}
+
+form input[type=password] {
+    padding: 4px 20px 4px 0px;
+    margin: 0px 0px 15px 0px;
+}
+
+
+form input[type=submit] {
+    margin-bottom: 10px;
+}
+
+form input::placeholder {
+    padding-left: 3px;
+}
+
+
+#nimas_racuna_link {
+    display: inline-block;
+    margin-top: 10px;
+}
+
+#ze_registriran_link {
+    display: inline-block;
+    margin-top: 10px;
+}
+
+.note-div {
+    border: solid 1px black;
+    margin: 10px auto;
+    padding-left: 10px;
+    background-color: azure;
+}
+
+#logout-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin:5px;
+}
