@@ -1,13 +1,12 @@
-from flask import Flask, render_template, request, redirect, session
+from flask import Flask, render_template, request, redirect, session, jsonify
 from tinydb import TinyDB, Query
-from markupsafe import escape # Uporablja se za user input, npr: f"Uporabik je vsedsel: {escape(text)}"
 
 app = Flask(
     __name__,
-    template_folder="template1",
-    static_folder="static"
+    template_folder="template-1",
+    static_folder="static-1"
 )
-app.secret_key = "4438015b65c442f9a8b5296d974bd60d47f9ce0816366b873f27ec6b0668c927"
+app.secret_key = "fdjhiofhfjdg9h349hidfshg98e934ej983"
 
 db = TinyDB("db.json")
 users = db.table("users")
@@ -58,28 +57,24 @@ def dashboard():
     if "user" not in session:
         return redirect("/login")
     
+    zapiski = notes.search(Notes.username == session["user"])
 
-    userNotes = notes.search(Notes.username == session["user"])
-
-    return render_template("dashboard.html", user=session["user"], notes=userNotes)
+    return render_template("dashboard.html", user=session["user"], notes=zapiski)
 
 
 @app.route("/saveNote", methods=["POST"])
 def saveNote():
     if request.method == "POST":
         data = request.form
-        print(data)
-
         notes.insert({'username': session["user"], 'title': data["title"], 'content': data["content"]})
 
-        return {"status": 200}
+        return jsonify({"status": "saved"}), 200
 
 
 @app.route("/logout", methods=["GET"])
 def logout():
     session.clear()
-
-    return {"status": 200}
+    return jsonify({"status": "removed"}), 200
 
 
 app.run(debug=True)
