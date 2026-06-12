@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-4.0.0.min.js"
+        integrity="sha256-OaVG6prZf4v69dPg6PhVattBXkcOWQB62pdZ3ORyrao=" crossorigin="anonymous"></script> <!-- jquery -->
+</head>
+
+<body>
+    <h1>Objave</h1>
+    <h2>Ojla {{ user }}!</h2>
+    <button onclick="window.location.href='/newPost'">Ustvari novo objavo</button><br>
+    <div id="postsArea">
+        {% for post in posts %}
+        <div class="post-div" id="{{ " post" + post.id|string }}">
+            <h2>{{ post.title }}</h2>
+            <h4>Avtor: {{ post.username }}</h4>
+            <p>{{ post.content }}</p><br>
+            {% if post.image %}
+            <img src="data:image/jpeg;base64,{{ post.image }}" alt="slika">
+            {% endif %}
+
+
+            {% if post.username == session.user %}
+            <button onclick="deletePost({{ post.id }})">Izbriši</button>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+    <button id="logout-button" onclick="logout()">Logout</button>
+</body>
+
+</html>

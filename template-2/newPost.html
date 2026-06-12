@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New post</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://code.jquery.com/jquery-4.0.0.min.js" integrity="sha256-OaVG6prZf4v69dPg6PhVattBXkcOWQB62pdZ3ORyrao=" crossorigin="anonymous"></script>
+</head>
+<body>
+    <form method="POST" action="/newPost" enctype="multipart/form-data">
+        <label for="title">Naslov:</label>
+        <input type="text" name="title" id="title"><br>
+        <label for="contentTextarea">Vsebina:</label><br>
+        <textarea name="content" id="contentTextarea"></textarea><br>
+        <label for="image">Slika: (neobvezno)</label><br>
+        <input type="file" name="image" id="image"><br>
+        <button type="submit">Objavi!</button>
+    </form>
+</body>
+</html>

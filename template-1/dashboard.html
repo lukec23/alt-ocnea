@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dash</title>
-    <link rel="stylesheet" href="static/style.css">
+    <link rel="stylesheet" href="static-1/style.css">
     <script src="https://code.jquery.com/jquery-4.0.0.min.js" integrity="sha256-OaVG6prZf4v69dPg6PhVattBXkcOWQB62pdZ3ORyrao=" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -16,7 +16,6 @@
                 'type': 'GET',
                 'success': function(data) {
                     window.location.reload();
-                    console.log("Logout success.");
                 }
             });
         }
@@ -37,7 +36,7 @@
                 'content': content
             },
             'success' : function(data) {              
-                console.log('Data: ' + data);
+                console.log('success');
             },
             'error' : function(request, error)
             {
