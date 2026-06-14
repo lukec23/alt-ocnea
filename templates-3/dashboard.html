@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+    <meta charset="UTF-8">
+    <title>Bored Activity Planner</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{{ url_for('static', filename='script.js') }}" defer></script>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Dobrodošli, {{ user }}!</h1>
+            <a href="/logout" class="logout">Odjava</a>
+        </div>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <div class="activity-section">
+            <h2>Predlog za aktivnost</h2>
+            <div class="activity-box">
+                <p id="activity-text">{{ activity.activity }}</p>
+                <div class="activity-details">
+                    <span>Tip: <span id="activity-type">{{ activity.type }}</span></span>
+                    <span>Št. udeležencev: <span id="activity-participants">{{ activity.participants }}</span></span>
+                    <span>Cena: <span id="activity-price">{{ activity.price }}</span></span>
+                </div>
+            </div>
+            <div class="activity-buttons">
+                <button id="newActivityBtn">Nova aktivnost</button>
+                <button id="saveActivityBtn">Shrani med priljubljene</button>
+            </div>
+        </div>
+
+        <div class="favorites-section">
+            <h2>Moje priljubljene aktivnosti</h2>
+            {% if favorites %}
+                {% for fav in favorites %}
+                    <div class="favorite-item">
+                        <div>
+                            <p>{{ fav.activity }}</p>
+                            <div class="favorite-details">
+                                Tip: {{ fav.type }} | Št. udeležencev: {{ fav.participants }} | Cena: {{ fav.price }}
+                            </div>
+                        </div>
+                        <button class="delete-btn" data-id="{{ fav.id }}">Izbriši</button>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>Nimate še nobene shranjene aktivnosti.</p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+    <meta charset="UTF-8">
+    <title>Registracija - Bored Activity Planner</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>Registracija</h2>
+        <form method="POST">
+            <input type="text" name="username" placeholder="Uporabniško ime" required>
+            <input type="password" name="password" placeholder="Geslo" required>
+            <button type="submit">Registriraj se</button>
+        </form>
+        <p>Že imate račun? <a href="/login">Prijavite se</a></p>
+    </div>
+</body>
+</html>
