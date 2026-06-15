@@ -90,7 +90,6 @@ def get_new_activity():
 
 @app.route("/save_activity", methods=["POST"])
 def save_activity():
-    """Shrani aktivnost v bazo za prijavljenega uporabnika"""
     if "user" not in session:
         return jsonify({"status": "error", "message": "Niste prijavljeni"}), 401
 
@@ -121,8 +120,6 @@ def save_activity():
 
 @app.route("/get_favorites")
 def get_favorites():
-    if "user" not in session:
-        return jsonify([])
     user_activities = activities_table.search(Activity.username == session["user"])
     result = [{"id": a.doc_id, "activity": a["activity"], "type": a["type"], "participants": a["participants"], "price": a["price"]} for a in user_activities]
     return jsonify(result)
@@ -130,13 +127,9 @@ def get_favorites():
 
 @app.route("/delete_activity", methods=["POST"])
 def delete_activity():
-    if "user" not in session:
-        return jsonify({"status": "error", "message": "Niste prijavljeni"}), 401
 
     data = request.get_json()
     activity_id = data.get("id")
-    if not activity_id:
-        return jsonify({"status": "error", "message": "ID aktivnosti ni podan"}), 400
 
     activity = activities_table.get(doc_id=int(activity_id))
     if activity and activity["username"] == session["user"]:

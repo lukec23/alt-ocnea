@@ -78,9 +78,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 } else {
                     showError(response.message);
                 }
-            },
-            error: function(xhr, status, error) {
-                showError("Napaka pri brisanju aktivnosti.");
             }
         });
     });

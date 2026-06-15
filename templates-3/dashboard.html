@@ -14,14 +14,6 @@
             <a href="/logout" class="logout">Odjava</a>
         </div>
 
-        {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-                {% for category, message in messages %}
-                    <div class="alert alert-{{ category }}">{{ message }}</div>
-                {% endfor %}
-            {% endif %}
-        {% endwith %}
-
         <div class="activity-section">
             <h2>Predlog za aktivnost</h2>
             <div class="activity-box">
