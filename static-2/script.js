@@ -21,19 +21,3 @@ function deletePost(postId) {
         }
     });
 }
-
-function updatePost(postId) {
-    console.log(postId);
-    content = document.getElementById("post" + postId).getElementsByTagName("textarea")[0].value;
-    $.ajax({
-        'url': '/updatePost',
-        'type': 'POST',
-        'data': {
-            'id': postId,
-            'content': content
-        },
-        'success': function (data) {
-            window.location.reload();
-        }
-    });
-}

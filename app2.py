@@ -37,7 +37,6 @@ def register():
         if cur.execute("SELECT * FROM users WHERE username=?", (username,)).fetchone():
             return "Uporabnik že obstaja."
 
-        #password_hash = bcrypt.generate_password_hash(password).decode("utf-8") mozna napaka tu!
         password_hash = sha256_crypt.encrypt(password)
 
         cur.execute("INSERT INTO users (username, password) VALUES (?, ?)", (username, password_hash))
@@ -68,8 +67,7 @@ def login():
 @app.route("/logout", methods=["GET"])
 def logout():
     session.clear()
-
-    return {"status": 200}
+    return {"status": "success"}, 200
 
 
 @app.route("/dashboard")
@@ -108,16 +106,6 @@ def deletePost():
         conn.commit()
 
         return jsonify({"status": "deleted"}), 200
-
-
-@app.route("/updatePost", methods=["POST"])
-def updatePost():
-    if request.method == "POST":
-        data = request.form
-        cur.execute("UPDATE posts SET content=? WHERE id=?", (data["content"], int(data["id"])))
-        conn.commit()
-
-        return jsonify({"status": "updated"}), 200
 
 
 app.run(debug=True)
